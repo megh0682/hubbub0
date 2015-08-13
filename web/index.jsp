@@ -8,11 +8,12 @@
         <title>Hubbub&trade;</title>
     </head>
     <body>
-        <h1>Hubbub&trade;welcome the following users</h1>
-        <c:forEach var="user" items="${users}">
+        <h1>Hubbub&trade;welcome to Hubbub1!</h1>
+        <c:forEach var="post" items="${posts}">
             <fieldset>
-                User Name: ${user.userName}<br/>
-                Join Date: <fmt:formatDate type="DATE" value="${user.joinDate}"/>
+                ${post.userName} <sub>(user since )</sub><br>
+                ${post.postDesc}<br>
+                posted ${post.postedOn}. <!--fmt:formatDate type="DATE" value=""/-->
             </fieldset>
         </c:forEach>
     </body>
