@@ -1,6 +1,7 @@
 package edu.acc.j2ee.hubbub4;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -45,12 +46,14 @@ public class Controller extends HttpServlet {
     
      String username =request.getParameter("user");
      String pwd= request.getParameter("pass");  
+     String newPost=request.getParameter("postArea");
      LoginBean user =new LoginBean(username,pwd);   
-     HttpSession session = request.getSession(false);
      ServletContext sc = getServletContext();
      //HubbubDAO daoConn = (HubbubDAO)getServletContext().getAttribute("db");
      UserValidator uv = new UserValidator();
      String destination = "login.jsp";
+     HttpSession session = request.getSession(false);
+     if(session.getAttribute("loginBean")==null){      
         if(session!= null)
            { 
             if(!(UserValidator.isValid(user)))	
@@ -77,6 +80,18 @@ public class Controller extends HttpServlet {
                  }
 
             }
+     }
+     else
+     {
+        HubbubDAO db = (HubbubDAO)getServletContext().getAttribute("db");
+        User uname = db.find(user.getUsername());
+        String upost = request.getParameter("postArea");
+        Post postObj = new Post(upost,new Date(), uname);
+        db.addPost(postObj);
+        List<Post> posts = db.getSortedPosts();
+        request.setAttribute("posts", posts);
+        destination = "timeline.jsp";
+    }
      RequestDispatcher rd=request.getRequestDispatcher(destination);
      rd.forward(request,response);
  }
