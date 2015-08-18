@@ -8,7 +8,7 @@
 <h1><b>LOG-IN</b></h1>
 <h2 id = "flash">${flash}</h2>  
 <div>
-<form method="POST" action="signin"> 
+<form method="POST" action="posts"> 
 <table border="1">
 	<tr><td>Username:</td><td><input type="text" name="user" required/></td></tr>
 	<tr><td>Password:</td><td><input type="password" name="pass" required/></td></tr>
