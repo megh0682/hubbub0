@@ -87,6 +87,7 @@ public class Controller extends HttpServlet {
         LoginBean uUser = (LoginBean) session.getAttribute("loginBean");
         User uname = db.find(uUser.getUsername());
         String upost = request.getParameter("postArea");
+        upost =  uv.findReplaceInvalidChar(upost);
         Post postObj = new Post(upost,new Date(), uname);
         db.addPost(postObj);
         List<Post> posts = db.getSortedPosts();
