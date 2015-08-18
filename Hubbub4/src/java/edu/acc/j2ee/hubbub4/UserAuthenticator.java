@@ -1,10 +1,12 @@
 package edu.acc.j2ee.hubbub4;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 
 public class UserAuthenticator{ 
-	
-  HubbubDAO daoConn = new HubbubDAO();
+    
+  ServletContext sc;	
+  HubbubDAO daoConn = (HubbubDAO)sc.getAttribute("db");
   private User uname;
 	
    public UserAuthenticator(HubbubDAO daoConn)     
@@ -25,4 +27,5 @@ public class UserAuthenticator{
         }
       return false;
     }
-}
+
+ }
