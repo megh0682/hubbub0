@@ -52,7 +52,7 @@ public class Controller extends HttpServlet {
      //HubbubDAO daoConn = (HubbubDAO)getServletContext().getAttribute("db");
      UserValidator uv = new UserValidator();
      String destination = "login.jsp";
-     HttpSession session = request.getSession(false);
+     HttpSession session = request.getSession();
      if(session.getAttribute("loginBean")==null){      
         if(session!= null)
            { 
@@ -84,7 +84,8 @@ public class Controller extends HttpServlet {
      else
      {
         HubbubDAO db = (HubbubDAO)getServletContext().getAttribute("db");
-        User uname = db.find(user.getUsername());
+        LoginBean uUser = (LoginBean) session.getAttribute("loginBean");
+        User uname = db.find(uUser.getUsername());
         String upost = request.getParameter("postArea");
         Post postObj = new Post(upost,new Date(), uname);
         db.addPost(postObj);
