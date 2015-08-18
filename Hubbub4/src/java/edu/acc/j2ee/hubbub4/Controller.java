@@ -45,7 +45,7 @@ public class Controller extends HttpServlet {
      String username =request.getParameter("user");
      String pwd= request.getParameter("pass");  
      LoginBean user =new LoginBean(username,pwd);   
-     HttpSession session = request.getSession();
+     HttpSession session = request.getSession(false);
      HubbubDAO daoConn = new HubbubDAO();
      UserValidator uv = new UserValidator();
      String destination = "login.jsp";
