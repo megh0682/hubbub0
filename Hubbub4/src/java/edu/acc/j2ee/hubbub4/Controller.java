@@ -3,6 +3,7 @@ package edu.acc.j2ee.hubbub4;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,8 @@ public class Controller extends HttpServlet {
      String pwd= request.getParameter("pass");  
      LoginBean user =new LoginBean(username,pwd);   
      HttpSession session = request.getSession(false);
-     HubbubDAO daoConn = (HubbubDAO)getServletContext().getAttribute("db");
+     ServletContext sc = getServletContext();
+     //HubbubDAO daoConn = (HubbubDAO)getServletContext().getAttribute("db");
      UserValidator uv = new UserValidator();
      String destination = "login.jsp";
         if(session!= null)
@@ -58,7 +60,7 @@ public class Controller extends HttpServlet {
              }
           else
               {        
-                UserAuthenticator ua = new UserAuthenticator(daoConn);  
+                UserAuthenticator ua = new UserAuthenticator(sc);  
                         if(!(ua.isAuthentic(user)))
                           {
                       String flash = "Access denied";

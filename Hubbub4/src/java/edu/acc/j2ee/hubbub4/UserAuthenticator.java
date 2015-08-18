@@ -6,15 +6,17 @@ import javax.servlet.ServletContext;
 public class UserAuthenticator{ 
 	
   //ServletContext sc;
-  HubbubDAO daoConn;
+  ServletContext sc;
   private User uname;
 	
-   public UserAuthenticator(HubbubDAO daoConn)     
+   public UserAuthenticator(ServletContext sc)     
           {
-          	  this.daoConn = daoConn;
+          	  this.sc = sc;
           }
         
    public boolean isAuthentic(LoginBean user){
+       
+ HubbubDAO daoConn = (HubbubDAO)sc.getAttribute("db");
        
     uname = daoConn.find(user.getUsername());
     
