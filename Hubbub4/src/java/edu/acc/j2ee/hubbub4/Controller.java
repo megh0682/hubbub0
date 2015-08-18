@@ -69,6 +69,9 @@ public class Controller extends HttpServlet {
                         else
                           {
                       session.setAttribute("loginBean",user);
+                      HubbubDAO db = (HubbubDAO)getServletContext().getAttribute("db");
+                      List<Post> posts = db.getSortedPosts();
+                      request.setAttribute("posts", posts);
                       destination = "timeline.jsp";
                           }
                  }

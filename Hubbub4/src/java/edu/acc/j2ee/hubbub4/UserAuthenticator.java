@@ -18,7 +18,7 @@ public class UserAuthenticator{
        
  HubbubDAO daoConn = (HubbubDAO)sc.getAttribute("db");
        
-    uname = daoConn.find(user.getUsername());
+ uname = daoConn.find(user.getUsername());
     
     if(uname != null){
           if(uname.getPassWord().equals(user.getPassword())){
