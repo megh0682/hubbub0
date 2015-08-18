@@ -6,7 +6,7 @@ import javax.servlet.ServletContext;
 public class UserAuthenticator{ 
     
   ServletContext sc;	
-  HubbubDAO daoConn = (HubbubDAO)sc.getAttribute("db");
+  HubbubDAO daoConn;
   private User uname;
 	
    public UserAuthenticator(HubbubDAO daoConn)     
