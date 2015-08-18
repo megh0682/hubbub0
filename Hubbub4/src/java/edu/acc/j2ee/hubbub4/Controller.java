@@ -17,7 +17,7 @@ public class Controller extends HttpServlet {
         HubbubDAO db = (HubbubDAO)getServletContext().getAttribute("db");
         List<Post> posts = db.getSortedPosts();
         request.setAttribute("posts", posts);
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(); 
         LoginBean user = (LoginBean)session.getAttribute("loginBean");   
         String destination = "timeline.jsp";
         if(user == null)
