@@ -14,10 +14,29 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String destination = "timeline.jsp";
         HubbubDAO db = (HubbubDAO)getServletContext().getAttribute("db");
         List<Post> posts = db.getSortedPosts();
         request.setAttribute("posts", posts);
-        request.getRequestDispatcher("timeline.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        LoginBean user = (LoginBean)session.getAttribute("loginBean");         	 
+        if(user == null)
+        {
+            destination="timeline.jsp";
+        }
+        else if(request.getParameter("logout")!=null)
+        {
+            session.removeAttribute("loginBean");
+            session.invalidate();
+            destination="timeline.jsp";
+        }
+        else if(request.getParameter("login")!=null)
+        {
+            destination = "login.jsp";
+        }
+        RequestDispatcher rd = request.getRequestDispatcher(destination);
+        rd.forward(request, response);
+              
     }
     
     public void doPost (HttpServletRequest request, HttpServletResponse response)
